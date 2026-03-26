@@ -10,6 +10,34 @@ const db = {
 
     },
 
+    deleteById: function(collectionName, id) {
+    // Check if the collection exists, if not, return false
+        if (!this.collections[collectionName]) return false;
+
+        //  Overwrite the collection with a filtered version of itself
+        this.collections[collectionName] = this.collections[collectionName].filter(item => item.id !== id);
+        
+        return true; // Indicate success
+    },
+
+    updateById: function(collectionName, id, updateObject) {
+    // Check if the collection exists
+        if (!this.collections[collectionName]) return false;
+
+        const collection = this.collections[collectionName];
+
+        // Find the exact index of the item using .findIndex()
+        const index = collection.findIndex(item => item.id === id);
+
+        // If findIndex returns -1, it means the item wasn't found. Return false.
+        if (index === -1) return false;
+
+        // Merge the old object with the updateObject using the spread operator
+        collection[index] = { ...collection[index], ...updateObject };
+
+        return true; // Indicate success
+    },
+
     query: function(collectionName) {
     
     const originalArray = this.collections[collectionName];

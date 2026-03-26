@@ -3,7 +3,7 @@ const db = require('./engine.js');
 const { usersData, productsData } = require('./data.js');
 
 // Import our separated query functions
-const { getAdultUsers, highestPaidEmp, lowStockElectronics } = require('./queries/userQueries.js');
+const { getAdultUsers, highestPaidEmp, lowStockElectronics, deleteUserById, updateUserById } = require('./queries/userQueries.js');
 
 
 // 1. "Seed" (fill) the database first
@@ -23,3 +23,9 @@ console.log(topEarners);
 const lowerstStock = lowStockElectronics();
 console.log("Lowest stock electronics product:");
 console.log(lowerstStock);
+
+const deleteResult = deleteUserById("users", 2);
+console.log(deleteResult);
+
+const updateResult = updateUserById("users", 3, { age: 35, salary: 90000 });
+console.log(updateResult);
